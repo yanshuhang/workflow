@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ysh.workflow.dao.BoardDao">
+
+    <insert id="createBoard" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO board (name, creator_id)
+        VALUES (#{name}, #{creator.id})
+    </insert>
+    <insert id="addUser">
+        INSERT INTO board_user (board, user)
+        VALUES (#{boardId}, #{userId})
+    </insert>
+    <update id="rename">
+        UPDATE board
+        SET name = #{name}
+        WHERE id = #{id}
+    </update>
+    <select id="selectBoardById" resultMap="boardMap">
+        SELECT board.id, board.name, user.id AS user_id, user.name AS user_name
+        FROM board
+                 JOIN user ON board.creator_id = user.id
+        WHERE board.id =
+              #{id}
+    </select>
+    <select id="getUsers" resultMap="userMap">
+        SELECT user, name
+        FROM board_user
+                 JOIN user ON user = user.id
+        WHERE board = #{boardId}
+    </select>
+    <resultMap id="userMap" type="User">
+        <id property="id" column="user"/>
+        <result property="name" column="name"/>
+    </resultMap>
+    <resultMap id="boardMap" type="Board">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <association property="creator" javaType="User">
+            <id property="id" column="user_id"/>
+            <result property="name" column="user_name"/>
+        </association>
+    </resultMap>
+</mapper>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ysh.workflow.dao.TaskDao">
+
+    <insert id="addTask">
+        INSERT INTO task (boardId, type, color, `order`, title, description, creator_id)
+        VALUES (#{boardId}, #{type}, #{color}, #{order}, #{title}, #{description},
+                #{creator.id})
+    </insert>
+    <update id="updateOrder">
+        UPDATE task
+        SET `order` = #{order}
+        WHERE id = #{id}
+    </update>
+    <update id="updateType">
+        UPDATE task
+        SET type    = #{type},
+            `order` = #{order}
+        WHERE id = #{id}
+    </update>
+    <update id="updateTask">
+        UPDATE task
+        SET title       = #{title},
+            description = #{description},
+            color       = #{color}
+        WHERE id = #{id}
+    </update>
+    <delete id="deleteTask">
+        DELETE
+        FROM task
+        WHERE id = #{id}
+    </delete>
+    <select id="getTasks" resultMap="taskMap">
+        SELECT task.id AS task_id, title, description, type, color, `order`, creator_id, name AS user_name
+        FROM task
+                 JOIN user ON creator_id = user.id
+        WHERE boardId = #{boardId}
+    </select>
+    <resultMap id="taskMap" type="Task">
+        <id property="id" column="task_id"/>
+        <result property="title" column="title"/>
+        <result property="description" column="description"/>
+        <result property="type" column="type"/>
+        <result property="color" column="color"/>
+        <result property="order" column="order"/>
+        <association property="creator" javaType="User">
+            <id property="id" column="creator_id"/>
+            <result property="name" column="user_name"/>
+        </association>
+    </resultMap>
+</mapper>

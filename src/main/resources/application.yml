@@ -1,0 +1,25 @@
+server:
+  port: 8088
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/ysh?serverTimezone=CTT
+    username: ysh
+    password: Yanshuhang0+
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jackson:
+    default-property-inclusion: non_null
+  task:
+    execution:
+      pool:
+        core-size: 16
+        max-size: 32
+        keep-alive: 120s
+logging:
+  level:
+    com:
+      ysh:
+        workflow:
+          dao: debug
+mybatis:
+  mapper-locations: classpath:/mybatis/mapper/*.xml
+  config-location: classpath:/mybatis/config/mybatis-config.xml
