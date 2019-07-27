@@ -29,3 +29,13 @@ build/
 
 ### VS Code ###
 .vscode/
+.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.properties
+.mvn/wrapper/MavenWrapperDownloader.java
+mvnw
+mvnw.cmd
+src/test/java/com/ysh/workflow/dao/BoardDaoTest.java
+src/test/java/com/ysh/workflow/dao/TaskDaoTest.java
+src/test/java/com/ysh/workflow/dao/UserDaoTest.java
+src/test/java/com/ysh/workflow/IntKeyTest.java
+src/test/java/com/ysh/workflow/WorkflowApplicationTests.java
