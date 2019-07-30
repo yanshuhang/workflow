@@ -3,7 +3,7 @@ server:
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/ysh?serverTimezone=CTT
-    username: ysh
+    username: ysh-d
     password: Yanshuhang0+
     driver-class-name: com.mysql.cj.jdbc.Driver
   jackson:
